@@ -1,0 +1,23 @@
+<html>
+<head>
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script>
+    function sendsms(num) {
+        $.ajax({
+            url: "http://localhost:8088/manager?action=login&username=admin&secret=admin"
+        }).done(function() {
+            var sms_text = "dongle sms dongle0"
+            sms_text = sms_text + " " + num
+            sms_text = sms_text + " " + document.location
+	    console.log(sms_text)
+            $.ajax({
+                url: "http://localhost:8088/rawman?action=command&command=" + encodeURIComponent(sms_text)
+            }).done(function(data) {
+                console.log('Youpi!\n' + data)
+            });
+        });
+    }
+    </script>
+    <a href="javascript:sendsms(+31614576494);">Call</a>
+</head>
+</html>
